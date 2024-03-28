@@ -59,3 +59,54 @@ Para subir los cambios a **GITHUB** :
 git push origin main
 ~~~
 Nos pedira Clave o Key en ciertas ocasiones.
+
+### Revisar el Estado de tus Archivos
+Revision **ESTADO** general del repositorio:
+~~~
+git status 
+o
+git status -s  
+~~~
+`-s` solamente muesta los ficheros en los cuales hubieron cambios y el estado en el que se encuentran.
+>El comando te indica en cuál rama estás y te informa que ha variado con respecto a la misma rama en el servidor.
+Tambien podemos usar 
+~~~
+git diff 
+~~~
+Este comando muestra las líneas exactas que fueron añadidas y eliminadas.
+
+1. Revisaremos si se hicieron los cambios con `git status`.
+***
+### Historial se Confirmaciones
+#### Git log
+1. Luego revisaremos la version de commit con su identificador unico o **HASH** con su respectiva informacion:
+~~~
+git log 
+o
+git log --oneline
+~~~
+>El mecanismo que usa Git para generar esta suma de comprobación se conoce como hash SHA-1. Se trata de una cadena de 40 caracteres hexadecimales (0-9 y a-f), y se calcula con base en los contenidos del archivo o estructura del directorio en Git. Por ejemplo:
+~~~
+24b9da6552252987aa493b52f8696cd6d3b00373
+~~~
+>Git guarda todo no por nombre de archivo, sino por el valor hash de sus contenidos.
+
+Tambien se puede hacer variantes de `git log` como :
+
+| Comando log | Funcion | 
+| -- | -- | 
+| -p | Muestra las diferencias introducidas en cada confirmación. | 
+| -2 | Se muestren únicamente las dos últimas entradas del historial. | 
+| -p -2 | Diferencias y ultimas entradas del hitorial. | 
+| --stat: | Estadísticas de cada confirmación. | 
+
+
+#### Git log en ramas
+git puede mostrar las versiones de rammas por separado. Distinto a git log que muestra todo el historial del proyecto.
+
+[Ver mas sobre git en ramas](https://es.stackoverflow.com/questions/496506/como-mostrar-el-log-de-una-rama-espec%C3%ADfica-de-git-sin-mostrar-la-rama-master) 
+
+Mostrar commits que hay en una rama pero en las otras no:
+~~~
+git log --oneline --graph master..ramaquequeremosverloscommits
+~~~
