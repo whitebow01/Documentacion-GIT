@@ -60,6 +60,11 @@ git push origin main
 ~~~
 Nos pedira Clave o Key en ciertas ocasiones.
 
+Sincronizar tu rama local con la rama remota
+~~~
+git pull origin ramaquequeremostraer(normal main)
+~~~
+
 ### Revisar el Estado de tus Archivos
 Revision **ESTADO** general del repositorio:
 ~~~
