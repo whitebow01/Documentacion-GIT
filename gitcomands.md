@@ -26,7 +26,12 @@
 ***
 
 ## Repositorio
+Cuando empezamos en un nuevo equipo, necesitamos iniciar sesion en git para poder sincronizar con github o algun sv remoto
 
+~~~
+git config --global user.name "Tu Nombre"
+git config --global user.email "tuemail@example.com"
+~~~
 
 ### Comandos repositorio local (git) : 
 >Normalmente mas usados:
@@ -64,6 +69,41 @@ Sincronizar tu rama local con la rama remota
 ~~~
 git pull origin ramaquequeremostraer(normal main)
 ~~~
+### ERRORES CON GIT CLONACIONES
+Cuando tenemos el error Permission denied (publickey) al intentar clonar o sincronizar los archivos a github. Indica que Git no puede autenticar tu conexión SSH con GitHub.
+
+Lo mas rapido es crear otra clave ssh
+
+1. En terminal:
+~~~
+ssh-keygen -t ed25519 -C "tuemail@example.com"
+ssh-keygen -t rsa -b 4096 -C "tuemail@example.com"
+~~~
+Sigue las instrucciones:
+
+Cuando te pida "Enter a file in which to save the key", presiona Enter para aceptar la ubicación predeterminada (/home/tu_usuario/.ssh/id_ed25519 o /home/tu_usuario/.ssh/id_rsa).
+
+Introduce una frase de paso (opcional pero recomendado) y confírmala.
+
+2. Agregar la clave SSH al agente SSH
+~~~
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+~~~
+
+3. Añadir la clave SSH a tu cuenta de GitHub
+~~~
+cat ~/.ssh/id_ed25519.pub
+~~~
+Copia el contenido de la clave pública mostrada en la terminal.
+
+4. Agregar la clave SSH a GitHub:
+
+    Ve a GitHub Settings.
+    Haz clic en New SSH key.
+    Introduce un título descriptivo para la clave y pega la clave pública copiada.
+    Haz clic en Add SSH key.
+5. Ahora intenta clonar lo que deseas clonar. Te pedira la clave que pusiste anteriormente
 
 ### Revisar el Estado de tus Archivos
 Revision **ESTADO** general del repositorio:
