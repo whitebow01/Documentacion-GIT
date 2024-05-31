@@ -155,3 +155,30 @@ Mostrar commits que hay en una rama pero en las otras no:
 ~~~
 git log --oneline --graph master..ramaquequeremosverloscommits
 ~~~
+
+### ERRORES COMUNES (O solo a mi):
+Algunas veces tengo cuando hago un git push origin main y no me deja subirlo. Me pide usuario y contrasena pero aun cuando son correcto me sale esto:
+~~~
+remote: Support for password authentication was removed on August 13, 2021.
+remote: Please see https://docs.github.com/get-started/getting-started-with-git/about-remote-repositories#cloning-with-https-urls for information on currently recommended modes of authentication.
+fatal: Autenticación falló para 'https://github.com/
+~~~
+
+Aunque tengo claves ssh, me salio igual el error.
+1. Entonces liste las claves que tengo:
+`ls ~/.ssh   `
+
+1. Luego  Agregar la Clave SSH al Agente SSH:
+~~~
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
+~~~
+Agrega la que quieras del listado que te dio antes.
+
+1. Luego Actualizar la URL Remota del Repositorio:
+`git remote set-url origin git@github.com:tunombredeusuario/eldirectorioconelquetienesproblemas`
+
+1. Probar la Conexión SSH con GitHub:
+`ssh -T git@github.com`
+
+1. Ahora podras hacer un `git push origin main`
