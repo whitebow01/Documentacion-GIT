@@ -12,6 +12,7 @@
 | mv archivo.txt /ruta/de/destino | Mover archivos a directorios o carpetas |
 | cat | Imprime por pantalla el fichero seleccionado |
 | rm nombrearchivo | Eliminamos el archivo|
+
 >Tambien se puede utilizar `ls` con el nombre de un directorio para ver el contenido.
 
 ***
@@ -182,3 +183,59 @@ Agrega la que quieras del listado que te dio antes.
 `ssh -T git@github.com`
 
 1. Ahora podras hacer un `git push origin main`
+
+
+#### Cambio de Correo Electrónico en Commits Anteriores en Git
+Me paso que formatee mi equipo y luego instale git y puse otro correo que terminaba en .cl. Entonces cuando hacia git push, los cambios no se veian reflejados en mis graficos. Entonces tuve que actualizar el correo y los commits que ya habia hecho, ya los pude ver.
+
+Para ver si es este el problema, veremos el log(historial de commits):`git log`.
+Si los commits anteriores estan con un correo distinto al de github(a menos que lo hayas cambiado desde la app). Se debe hacer lo siguiente:
+
+Entonces Reescribiremos el historial de commits para actualizar el correo en los commits anteriores.
+
+**Pasos para Cambiar el Correo Electrónico en Commits Anteriores**
+
+1. Configurar el Correo Electrónico Correcto para Futuros Commits
+
+Asegúrate de que el correo electrónico correcto esté configurado globalmente o para el repositorio específico:
+~~~
+   git config --global user.email "tuemailcorrecto@example.com"
+~~~
+2. Reescribir el Historial de Commits
+
+Utiliza este script para reescribir el historial de commits y cambiar el correo electrónico en los commits anteriores:
+
+~~~
+#!/bin/sh
+
+git filter-branch --env-filter '
+OLD_EMAIL="email_incorrecto@example.com"
+CORRECT_NAME="TuNombre que tienes en github"
+CORRECT_EMAIL="tuemailcorrecto@example.com"
+
+if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_COMMITTER_NAME="$CORRECT_NAME"
+    export GIT_COMMITTER_EMAIL="$CORRECT_EMAIL"
+fi
+if [ "$GIT_AUTHOR_EMAIL" = "$OLD_EMAIL" ]
+then
+    export GIT_AUTHOR_NAME="$CORRECT_NAME"
+    export GIT_AUTHOR_EMAIL="$CORRECT_EMAIL"
+fi
+' --tag-name-filter cat -- --branches --tags
+~~~
+
+3. Forzar el Push al Repositorio Remoto
+Este paso sobrescribirá el historial de commits en el remoto:
+~~~
+git push --force --tags origin 'refs/heads/*'
+~~~
+
+4. Confirmar los Cambios. Verificar el Nuevo Correo Electrónico
+```
+git config user.email
+```
+
+Verificar el Historial de Commits
+`git log`
