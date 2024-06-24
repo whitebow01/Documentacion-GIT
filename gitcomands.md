@@ -239,3 +239,41 @@ git config user.email
 
 Verificar el Historial de Commits
 `git log`
+
+
+
+## ALGUNAS COSAS A TENER EN CUENTA EN GITHUB
+Si hacemos una ramma adicional a la main-master con:
+~~~
+### Crear una nueva rama
+git branch nueva-rama
+
+### Cambiar a la nueva rama
+git checkout nueva-rama
+o
+git switch nueva-rama
+
+### Crear y cambiar a la nueva rama en un solo paso
+git checkout -b nueva-rama
+o
+git switch -c nueva-rama
+
+### Verificar en qué rama estás
+git branch
+
+### Hacer push de la nueva rama al repositorio remoto
+git push origin nueva-rama
+~~~
+Luego si hacemos un git push origin nuevarama, esta no se vera en el grafico de commits en github, hasta que hagamos:
+
+~~~
+### Fusionar la nueva rama con la rama principal
+git checkout main
+git merge nueva-rama
+
+### Eliminar la nueva rama
+git branch -d nueva-rama
+### o forzar eliminación
+git branch -D nueva-rama
+~~~
+
